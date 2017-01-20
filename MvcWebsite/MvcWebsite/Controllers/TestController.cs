@@ -22,5 +22,32 @@ namespace MvcWebsite.Controllers
             //return View(regionModel.Region_List());
             return View(rc.Region_List());
         }
+
+        public ActionResult Edit(int? id)
+        {
+            if (id.Equals(null))
+            {
+                return View();
+            }
+            else
+            {
+                int regionIdentity = id ?? default(int);
+                return View(rc.Region_Get(regionIdentity));
+            }
+
+        }
+
+        [HttpPost]
+        public ActionResult Edit([Bind(Include = "RegionID, RegionDescription")] Region region)
+        {
+            if (ModelState.IsValid)
+            {
+                rc.Update_Region(region);
+                return RedirectToAction("Index");
+            }
+                
+            return View();
+        }
+
     }
 }

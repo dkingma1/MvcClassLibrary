@@ -25,5 +25,14 @@ namespace MvcWebsiteSystem.BLL
                 return context.Regions.ToList();
             }
         }
+
+        public void Update_Region(Region region)
+        {
+            using (var context = new NorthwindContext())
+            {
+                context.Entry(region).State = System.Data.Entity.EntityState.Modified;
+                context.SaveChanges();
+            }
+        }
     }
 }
